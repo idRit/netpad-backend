@@ -1,4 +1,4 @@
-from model.note_model import DatabaseHandler
+from note_model import DatabaseHandler
 from flask import Flask, url_for, request, json, Response, jsonify
 from flask_cors import CORS, cross_origin
 
