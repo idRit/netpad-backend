@@ -12,7 +12,7 @@ class DatabaseHandler:
         self.notes_collection = self.notes_db.notes
 
 
-    def insert_one_note(self, subject = None, note_content = None, mode = None, ttl_in_seconds = 3600):
+    def insert_one_note(self, subject = None, note_content = None):
 
         if subject is None:
             subject = 'Empty' + str(uuid.uuid4())
@@ -21,21 +21,11 @@ class DatabaseHandler:
             note_content = 'Empty'
 
         subject = "#" + subject
-        created_At = datetime.datetime.utcnow()
-
-        if mode is 'POST':
-            self.notes_collection.create_index([("createdAt", 1)], expireAfterSeconds = ttl_in_seconds)
-            note = {
-                "Subject" : subject,
-                "Content" : note_content,
-                "createdAt" : created_At
-            }
-
-        elif mode is 'PUT':
-            note = {
-                "Subject" : subject,
-                "Content" : note_content
-            }
+        
+        note = {
+            "Subject" : subject,
+            "Content" : note_content
+        }
 
 
         self.notes_collection.update_one({"Subject" : subject}, {"$set" : note}, upsert = True )

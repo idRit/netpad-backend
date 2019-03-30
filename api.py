@@ -19,27 +19,15 @@ def index():
     resp = jsonify(note)
     return resp
 
-@app.route("/api/postNote", methods = ['POST', 'PUT'])
+@app.route("/api/postNote", methods = ['POST'])
 def postNote():
 
-    if request.method == 'POST':
-
-        res = json.dumps(request.json)
-        resDict = json.loads(res)
-        interactor.insert_one_note(subject = resDict.get("Subject"), note_content = resDict.get("Content"), mode = 'POST', ttl_in_seconds = resDict.get("ttl_in_sec"))
+    res = json.dumps(request.json)
+    resDict = json.loads(res)
+    interactor.insert_one_note(subject = resDict.get("Subject"), note_content = resDict.get("Content"))
         
-        return res
+    return res
 
-    elif request.method == 'PUT':
-        
-        res = json.dumps(request.json)
-        resDict = json.loads(res)
-        interactor.insert_one_note(subject = resDict.get("Subject"), note_content = resDict.get("Content"), mode = 'PUT')
-        
-        return res
-
-    else:
-        return jsonify({"error" : "check method type"})
 
 @app.route("/api/getNote/<noteSubject>", methods = ['GET', 'DELETE'])
 def getNote(noteSubject):
