@@ -20,8 +20,6 @@ class DatabaseHandler:
         if note_content is None:
             note_content = 'Empty'
 
-        subject = "#" + subject
-        
         note = {
             "Subject" : subject,
             "Content" : note_content
@@ -38,7 +36,7 @@ class DatabaseHandler:
         if note_subject is None:
             return None
 
-        note = self.notes_collection.find_one({"Subject" : '#'+note_subject})
+        note = self.notes_collection.find_one({"Subject" : note_subject})
 
         pprint.pprint(note)
 
