@@ -47,9 +47,14 @@ class DatabaseHandler:
         if note_subject is None:
             return "no such note"
 
+        cnt = self.notes_collection.count_documents({})
+
         self.notes_collection.delete_one({"Subject" : note_subject})
 
-        print("deleted")
+        if cnt == self.notes_collection.count_documents({}) :
+            return False
+        else :
+            return True
 
     def connected(self):
         return "connected!"
@@ -61,6 +66,7 @@ def test():
     a.insert_one_note("this is subject", "this is content")
     notex = a.get_one_note("this is subject")
     print(type(notex))
-    a.delete_one_note("#this is subject")
+    print(a.delete_one_note("this is s"))
+    print(a.delete_one_note("this is subject"))
 
 #test()

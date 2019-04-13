@@ -36,7 +36,7 @@ def getNote(noteSubject):
         
         note = interactor.get_one_note(noteSubject)
         if note is None:
-            return jsonify({"error" : "note not found"})
+            return jsonify({"operation" : "note not found"})
 
         note.pop('_id', None)
     
@@ -45,11 +45,10 @@ def getNote(noteSubject):
 
     elif request.method == 'DELETE':
         
-        note = interactor.delete_one_note(noteSubject)
-        if note is not None:
-            return jsonify({"error" : note})
-        else:
+        if interactor.delete_one_note(noteSubject):
             return jsonify({"operation" : "successful"})
+        else:
+            return jsonify({"operation" : "not successful"})
 
     else:
 
