@@ -23,6 +23,7 @@ def index():
 def postNote():
 
     res = json.dumps(request.json)
+    print('here')
     resDict = json.loads(res)
     interactor.insert_one_note(subject = resDict.get("Subject"), note_content = resDict.get("Content"))
         
