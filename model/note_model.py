@@ -7,7 +7,7 @@ import datetime
 class DatabaseHandler:
     
     def __init__(self):
-        self.client = MongoClient("mongodb+srv://red:blxgre369@cluster0-oaiys.mongodb.net/test?retryWrites=true")
+        self.client = MongoClient("connection string")
         self.notes_db = self.client.notes
         self.notes_collection = self.notes_db.notes
 
